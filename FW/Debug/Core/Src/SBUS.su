@@ -1,6 +1,0 @@
-SBUS.c:31:6:SBUS_Init	16	static
-SBUS.c:38:6:SBUS_Deinit	8	static
-SBUS.c:52:9:SBUS_Update	16	static
-SBUS.c:86:6:SBUS_IsValid	8	static
-SBUS.c:95:10:SBUS_CalculateCS	24	static
-SBUS.c:105:6:SBUS_VerifyCS	16	static
