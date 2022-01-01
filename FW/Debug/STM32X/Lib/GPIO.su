@@ -1,0 +1,10 @@
+GPIO.inl:28:20:GPIO_Set	16	static
+GPIO.inl:33:20:GPIO_Reset	16	static
+GPIO.c:48:6:GPIO_Write	24	static
+GPIO.c:60:6:GPIO_EnableAlternate	24	static
+GPIO.c:67:6:GPIO_OnChange	32	static
+GPIO.c:80:6:GPIO_Init	40	static
+GPIO.c:102:13:GPIO_ConfigAlternate	32	static
+GPIO.c:118:13:GPIO_ConfigInterrupt	40	static
+GPIO.c:142:17:GPIO_SWARBitDouble	16	static
+GPIO.c:162:13:EXTIx_EnableIRQn	16	static

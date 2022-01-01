@@ -1,0 +1,6 @@
+CLK.c:71:6:CLK_InitSYSCLK	8	static
+CLK.c:163:6:CLK_EnableLSO	8	static
+CLK.c:184:6:CLK_DisableLSO	8	static
+CLK.c:193:6:CLK_EnableADCCLK	8	static
+CLK.c:202:6:CLK_DisableADCCLK	8	static
+CLK.c:224:13:CLK_AccessBackupDomain	8	static
