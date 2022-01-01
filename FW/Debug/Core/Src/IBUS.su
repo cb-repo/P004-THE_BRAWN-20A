@@ -1,0 +1,6 @@
+IBUS.c:31:6:IBUS_Init	24	static
+IBUS.c:38:6:IBUS_Deinit	8	static
+IBUS.c:52:9:IBUS_Update	64	static
+IBUS.c:86:6:IBUS_IsValid	8	static
+IBUS.c:95:10:IBUS_CalculateCS	24	static
+IBUS.c:105:6:IBUS_VerifyCS	32	static
