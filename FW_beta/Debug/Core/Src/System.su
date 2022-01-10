@@ -1,0 +1,4 @@
+System.c:30:6:SYSTEM_Init	8	static
+System.c:36:6:SYSTEM_Update	8	static
+System.c:52:10:SYSTEM_Status	8	static
+System.c:57:14:SYSTEM_RadioToMotor	32	static

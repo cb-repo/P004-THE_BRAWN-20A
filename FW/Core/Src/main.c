@@ -91,45 +91,45 @@ FaultStates_t statusFault = {
 
 int main (void)
 {
-//	CORE_Init();
-	SYSTEM_ClockConfig();
-	uint32_t bootTick = CORE_GetTick();
-
-	// INITIALISE STATE LED
-	LED_Init();
-
-	// CHECK FOR ANY FAULTS ON BOOT
-	ADC_Init();
-	SYSTEM_CheckForFault(&systemStatus, &statusWarning, &statusFault);
-	while (systemStatus == FAULT)
-	{
-		LED_Update(&systemStatus);
-		CORE_Idle();
-		SYSTEM_CheckForFault(&systemStatus, &statusWarning, &statusFault);
-	}
-	LED_Update(&systemStatus);
-
-
-	// CONTINUE BOOT SEQUENCE
-//	CONFIG_Init(&systemConfig); 		//  <<------------------------------ Need to implement CONFIG
-	MOTOR_Init();
-	InputType_t temp_input = SPWM;
-	RADIO_Init(temp_input);
-
-	// WAIT FOR CONFIG TIMEOUT
-	while (BOOT_TIMEOUT >= CORE_GetTick() - bootTick)
-	{
-//		if (CONFIG_Set(&systemConfig)) { break; }
-		CORE_Idle();
-	}
-	systemStatus = RUN;
+////	CORE_Init();
+//	SYSTEM_ClockConfig();
+//	uint32_t bootTick = CORE_GetTick();
+//
+//	// INITIALISE STATE LED
+//	LED_Init();
+//
+//	// CHECK FOR ANY FAULTS ON BOOT
+//	ADC_Init();
+//	SYSTEM_CheckForFault(&systemStatus, &statusWarning, &statusFault);
+//	while (systemStatus == FAULT)
+//	{
+//		LED_Update(&systemStatus);
+//		CORE_Idle();
+//		SYSTEM_CheckForFault(&systemStatus, &statusWarning, &statusFault);
+//	}
+//	LED_Update(&systemStatus);
+//
+//
+//	// CONTINUE BOOT SEQUENCE
+////	CONFIG_Init(&systemConfig); 		//  <<------------------------------ Need to implement CONFIG
+//	MOTOR_Init();
+//	InputType_t temp_input = SPWM;
+//	RADIO_Init(temp_input);
+//
+//	// WAIT FOR CONFIG TIMEOUT
+//	while (BOOT_TIMEOUT >= CORE_GetTick() - bootTick)
+//	{
+////		if (CONFIG_Set(&systemConfig)) { break; }
+//		CORE_Idle();
+//	}
+//	systemStatus = RUN;
 
 	while (1)
 	{
 //		SYSTEM_CheckForFault(systemStatus, statusWarning, statusFault);
 //		SYSTEM_Update(systemStatus, statusDrive);
 //		MOTOR_Update(statusDrive);
-//		LED_Update();
+		LED_Update();
 		CORE_Idle();
 	}
 }

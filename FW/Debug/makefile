@@ -54,8 +54,8 @@ all: main-build
 main-build: THE_BRAWN.elf secondary-outputs
 
 # Tool invocations
-THE_BRAWN.elf: $(OBJS) $(USER_OBJS) C:\dev\GitHub\THE_BRAWN\New\ folder\STM32L010K4TX_FLASH.ld
-	arm-none-eabi-gcc -o "THE_BRAWN.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m0plus -T"C:\dev\GitHub\THE_BRAWN\New folder\STM32L010K4TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="THE_BRAWN.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+THE_BRAWN.elf: $(OBJS) $(USER_OBJS) C:\dev\GitHub\THE_BRAWN\FW\STM32L010K4TX_FLASH.ld
+	arm-none-eabi-gcc -o "THE_BRAWN.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m0plus -T"C:\dev\GitHub\THE_BRAWN\FW\STM32L010K4TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="THE_BRAWN.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

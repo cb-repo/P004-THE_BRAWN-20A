@@ -41,7 +41,6 @@ void LED_Init (void)
 void LED_Update (Status_t * status)
 {
 
-
 }
 
 void LED_Pulse (void)
