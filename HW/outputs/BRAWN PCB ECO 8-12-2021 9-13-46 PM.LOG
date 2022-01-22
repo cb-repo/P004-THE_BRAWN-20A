@@ -1,0 +1,16 @@
+Added Component: Designator=U2(DFN95P300X300X100)
+Add component (AddParameter): Name = "BWA PN"; Value = "ICT-10910-A"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Display_Name"; Value = "LDL212"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer"; Value = "STMicroelectronics"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer Part Number"; Value = "LDL212PU50R"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Schematic Symbol"; Value = "LDL212PU50R"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier 1"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part Number 1"; Value = "497-16897-1-ND"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Temp Range"; Value = "-40°C ~ 125°C (TJ)"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=GND Pin=U2-1
+Added Pin To Net: NetName=NetR2_1 Pin=U2-2
+Added Pin To Net: NetName=+5V0 Pin=U2-3
+Added Pin To Net: NetName=NetC3_2 Pin=U2-4
+Added Pin To Net: NetName=NetC3_2 Pin=U2-6
+Added Pin To Net: NetName=GND Pin=U2-7
+Added Member To Class: ClassName=BRAWN Member=Component U2 LDL212

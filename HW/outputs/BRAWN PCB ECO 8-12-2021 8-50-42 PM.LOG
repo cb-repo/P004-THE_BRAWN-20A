@@ -1,0 +1,10 @@
+Added Component: Designator=J6(TAG-CONNECT_TC2030-IDC-NL)
+Add component (AddParameter): Name = "BWA PN"; Value = "NONPART-056"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Display_Name"; Value = "TC2030-NL"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Schematic Symbol"; Value = "TAGCON_TC2030-IDC"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=+3V3 Pin=J6-1
+Added Pin To Net: NetName=SWDIO Pin=J6-2
+Added Pin To Net: NetName=NRST Pin=J6-3
+Added Pin To Net: NetName=SWCLK Pin=J6-4
+Added Pin To Net: NetName=GND Pin=J6-5
+Added Member To Class: ClassName=BRAWN Member=Component J6 TC2030-NL

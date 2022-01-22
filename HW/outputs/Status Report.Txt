@@ -1,0 +1,10 @@
+Output: BRAINS - PCB 3D Print - Bottom
+Type  : PCB 3D Print
+From  : Variant [Default] of PCB Document [BRAWN.PcbDoc]
+   Generated File[BRAWN(Default).png]
+
+
+Files Generated   : 1
+Documents Printed : 0
+
+Finished Output Generation At 2:01:47 AM On 9/12/2021

@@ -1,0 +1,27 @@
+Removed Pin From Net: NetName=GND Pin=DS1-1
+Removed Pin From Net: NetName=GND Pin=DS2-1
+Removed Pin From Net: NetName=LED_RED Pin=R14-2
+Removed Pin From Net: NetName=LED_GREEN Pin=R15-2
+Removed Pin From Net: NetName=LED_GREEN Pin=U3-12
+Removed Pin From Net: NetName=LED_RED Pin=U3-13
+Added Component: Designator=TP?(TP_100)
+Add component (AddParameter): Name = "BWA PN"; Value = "NONPART-002"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Display_Name"; Value = "TP_SMT"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Schematic Symbol"; Value = "TP_1"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=LED_RED Pin=DS1-2
+Added Pin To Net: NetName=LED_GREEN Pin=DS2-2
+Added Pin To Net: NetName=GND Pin=R14-1
+Added Pin To Net: NetName=GND Pin=R15-1
+Added Pin To Net: NetName=NRST Pin=TP?-1
+Added Pin To Net: NetName=LED_GREEN Pin=U3-3
+Added Pin To Net: NetName=LED_RED Pin=U3-22
+Added Pin To Net: NetName=NetDS1_1 Pin=DS1-1
+Added Pin To Net: NetName=NetDS1_1 Pin=R14-2
+Added Net: Name=NetDS1_1
+Added Pin To Net: NetName=NetDS2_1 Pin=DS2-1
+Added Pin To Net: NetName=NetDS2_1 Pin=R15-2
+Added Net: Name=NetDS2_1
+Added Member To Class: ClassName=BRAWN Member=Component TP? TP_SMT
+Added Member To Class: ClassName=BRAWN Member=Component TP? TP_SMT
+Added Member To Class: ClassName=BRAWN Member=Component TP? TP_SMT
+Added Member To Class: ClassName=BRAWN Member=Component TP? TP_SMT

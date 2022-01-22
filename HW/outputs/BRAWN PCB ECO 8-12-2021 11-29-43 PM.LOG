@@ -1,0 +1,36 @@
+Removed Pin From Net: NetName=NRST Pin=C11-1
+Removed Pin From Net: NetName=GND Pin=C11-2
+Removed Pin From Net: NetName=+3V3 Pin=J6-1
+Removed Pin From Net: NetName=SWDIO Pin=J6-2
+Removed Pin From Net: NetName=NRST Pin=J6-3
+Removed Pin From Net: NetName=SWCLK Pin=J6-4
+Removed Pin From Net: NetName=GND Pin=J6-5
+Removed Pin From Net: NetName=NRST Pin=R5-1
+Removed Pin From Net: NetName=+3V3 Pin=R5-2
+Removed Member From Class: ClassName=BRAWN Member=C11
+Removed Member From Class: ClassName=BRAWN Member=J6
+Removed Member From Class: ClassName=BRAWN Member=R5
+Added Component: Designator=TP?(TP_100)
+Add component (AddParameter): Name = "BWA PN"; Value = "NONPART-002"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Display_Name"; Value = "TP_SMT"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Schematic Symbol"; Value = "TP_1"; VariantName = "[No Variations]"
+Added Component: Designator=TP?(TP_100)
+Add component (AddParameter): Name = "BWA PN"; Value = "NONPART-002"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Display_Name"; Value = "TP_SMT"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Schematic Symbol"; Value = "TP_1"; VariantName = "[No Variations]"
+Added Component: Designator=TP?(TP_100)
+Add component (AddParameter): Name = "BWA PN"; Value = "NONPART-002"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Display_Name"; Value = "TP_SMT"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Schematic Symbol"; Value = "TP_1"; VariantName = "[No Variations]"
+Added Component: Designator=TP?(TP_100)
+Add component (AddParameter): Name = "BWA PN"; Value = "NONPART-002"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Display_Name"; Value = "TP_SMT"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Schematic Symbol"; Value = "TP_1"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=+3V3 Pin=TP?-1
+Added Pin To Net: NetName=NRST Pin=TP?-1
+Added Pin To Net: NetName=SWCLK Pin=TP?-1
+Added Pin To Net: NetName=SWDIO Pin=TP?-1
+Added Member To Class: ClassName=BRAWN Member=Component TP? TP_SMT
+Added Member To Class: ClassName=BRAWN Member=Component TP? TP_SMT
+Added Member To Class: ClassName=BRAWN Member=Component TP? TP_SMT
+Added Member To Class: ClassName=BRAWN Member=Component TP? TP_SMT

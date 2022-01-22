@@ -1,0 +1,67 @@
+Protel Design System Design Rule Check
+PCB File : C:\dev\GitHub\THE_BRAWN\HW\BRAWN.PcbDoc
+Date     : 9/12/2021
+Time     : 2:01:19 AM
+
+Processing Rule : Clearance Constraint (Gap=0.199mm) (All),(All)
+Rule Violations :0
+
+Processing Rule : Un-Routed Net Constraint ( (All) )
+Rule Violations :0
+
+Processing Rule : Width Constraint (Min=0.127mm) (Max=100mm) (Preferred=0.15mm) (All)
+Rule Violations :0
+
+Processing Rule : Routing Via (MinHoleWidth=0.2mm) (MaxHoleWidth=0.3mm) (PreferredHoleWidth=0.3mm) (MinWidth=0.4mm) (MaxWidth=0.7mm) (PreferedWidth=0.7mm) (All)
+Rule Violations :0
+
+Processing Rule : Power Plane Connect Rule(Direct Connect )(Expansion=0.3mm) (Conductor Width=0.3mm) (Air Gap=0.2mm) (Entries=4) (All)
+Rule Violations :0
+
+Processing Rule : Power Plane Connect Rule(Direct Connect )(Expansion=0.508mm) (Conductor Width=0.254mm) (Air Gap=0.254mm) (Entries=4) (isVia)
+Rule Violations :0
+
+Processing Rule : Minimum Annular Ring (Minimum=0.1mm) (All)
+Rule Violations :0
+
+Processing Rule : Acute Angle Constraint [Tracks Only] (Minimum=60.000) (All)
+Rule Violations :0
+
+Processing Rule : Hole Size Constraint (Min=0.2mm) (Max=6.3mm) (All)
+Rule Violations :0
+
+Processing Rule : Hole To Hole Clearance (Gap=0.254mm) (IsVia),(All)
+Rule Violations :0
+
+Processing Rule : Hole To Hole Clearance (Gap=0.5mm) (All),(All)
+Rule Violations :0
+
+Processing Rule : Minimum Solder Mask Sliver (Gap=0.15mm) (All),(All)
+   Violation between Minimum Solder Mask Sliver Constraint: (0.15mm < 0.15mm) Between Pad Q1-6(4.1mm,-0.325mm) on Bottom Layer And Pad Q1-7(4.1mm,0.325mm) on Bottom Layer [Bottom Solder] Mask Sliver [0.15mm]
+   Violation between Minimum Solder Mask Sliver Constraint: (0.15mm < 0.15mm) Between Pad Q4-6(12.15mm,-1.6mm) on Bottom Layer And Pad Q4-7(12.15mm,-2.25mm) on Bottom Layer [Bottom Solder] Mask Sliver [0.15mm]
+   Violation between Minimum Solder Mask Sliver Constraint: (0.15mm < 0.15mm) Between Pad Q6-6(14.15mm,1.6mm) on Bottom Layer And Pad Q6-7(14.15mm,2.25mm) on Bottom Layer [Bottom Solder] Mask Sliver [0.15mm]
+   Violation between Minimum Solder Mask Sliver Constraint: (0.05mm < 0.15mm) Between Pad U1-1(6.5mm,1.075mm) on Top Layer And Pad U1-2(6mm,1.075mm) on Top Layer [Top Solder] Mask Sliver [0.05mm]
+   Violation between Minimum Solder Mask Sliver Constraint: (0.04mm < 0.15mm) Between Pad U1-1(6.5mm,1.075mm) on Top Layer And Pad U1-7(6mm,0mm) on Top Layer [Top Solder] Mask Sliver [0.04mm]
+   Violation between Minimum Solder Mask Sliver Constraint: (0.05mm < 0.15mm) Between Pad U1-2(6mm,1.075mm) on Top Layer And Pad U1-3(5.5mm,1.075mm) on Top Layer [Top Solder] Mask Sliver [0.05mm]
+   Violation between Minimum Solder Mask Sliver Constraint: (0.04mm < 0.15mm) Between Pad U1-2(6mm,1.075mm) on Top Layer And Pad U1-7(6mm,0mm) on Top Layer [Top Solder] Mask Sliver [0.04mm]
+   Violation between Minimum Solder Mask Sliver Constraint: (0.04mm < 0.15mm) Between Pad U1-3(5.5mm,1.075mm) on Top Layer And Pad U1-7(6mm,0mm) on Top Layer [Top Solder] Mask Sliver [0.04mm]
+   Violation between Minimum Solder Mask Sliver Constraint: (0.05mm < 0.15mm) Between Pad U1-4(5.5mm,-1.075mm) on Top Layer And Pad U1-5(6mm,-1.075mm) on Top Layer [Top Solder] Mask Sliver [0.05mm]
+   Violation between Minimum Solder Mask Sliver Constraint: (0.04mm < 0.15mm) Between Pad U1-4(5.5mm,-1.075mm) on Top Layer And Pad U1-7(6mm,0mm) on Top Layer [Top Solder] Mask Sliver [0.04mm]
+   Violation between Minimum Solder Mask Sliver Constraint: (0.05mm < 0.15mm) Between Pad U1-5(6mm,-1.075mm) on Top Layer And Pad U1-6(6.5mm,-1.075mm) on Top Layer [Top Solder] Mask Sliver [0.05mm]
+   Violation between Minimum Solder Mask Sliver Constraint: (0.04mm < 0.15mm) Between Pad U1-5(6mm,-1.075mm) on Top Layer And Pad U1-7(6mm,0mm) on Top Layer [Top Solder] Mask Sliver [0.04mm]
+   Violation between Minimum Solder Mask Sliver Constraint: (0.04mm < 0.15mm) Between Pad U1-6(6.5mm,-1.075mm) on Top Layer And Pad U1-7(6mm,0mm) on Top Layer [Top Solder] Mask Sliver [0.04mm]
+Rule Violations :13
+
+Processing Rule : Silk To Solder Mask (Clearance=0.125mm) (IsPad),(All)
+Rule Violations :0
+
+Processing Rule : Silk to Silk (Clearance=0.1mm) (All),(All)
+Rule Violations :0
+
+Processing Rule : Matched Lengths(Tolerance=0.127mm) (InDifferentialPair ('GT_RX0') Or InDifferentialPair ('GT_RX1') Or InDifferentialPair ('GT_TX2') Or InDifferentialPair ('GT_TX3') Or InDifferentialPair ('GT_TX1') Or InDifferentialPair ('GT_RX2') Or InDifferentialPair ('GT_TX0') Or InDifferentialPair ('GT_RX3'))
+Rule Violations :0
+
+
+Violations Detected : 13
+Waived Violations : 0
+Time Elapsed        : 00:00:02
