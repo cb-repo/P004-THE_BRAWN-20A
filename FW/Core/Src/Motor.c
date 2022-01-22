@@ -4,23 +4,13 @@
 #include "GPIO.h"
 #include "TIM.h"
 #include "Core.h"
+#include "Radio.h"
 
 /*
  * PRIVATE DEFINITIONS
  */
 
-#define MOTOR_BRAKE			1
-
-#define OFF_DELAY_PFET_US	100 // OFF in 50us
-#define ON_DELAY_PFET_US	1 // ON in 10ns
-#define OFF_DELAY_NFET_US	100 // OFF in 50us
-#define ON_DELAY_NFET_US	1 // ON in 100ns
-
-#define OFF_DELAY_PFET_MS	1
-#define ON_DELAY_PFET_MS	1
-#define OFF_DELAY_NFET_MS	1
-#define ON_DELAY_NFET_MS	1
-
+#define MOTOR_BRAKE		true
 
 /*
  * PRIVATE TYPES
@@ -52,128 +42,227 @@ void MOTOR_Init (void)
 	GPIO_EnableOutput(FET_P2_GPIO, FET_P2_PIN, GPIO_PIN_RESET);
 	GPIO_EnableOutput(FET_N1_GPIO, FET_N1_PIN, GPIO_PIN_RESET);
 	GPIO_EnableOutput(FET_N2_GPIO, FET_N2_PIN, GPIO_PIN_RESET);
-
-	TIM_Init(TIM_MOTOR, TIM_MOTOR_FREQ, TIM_MOTOR_RELOAD);
-	TIM_OnReload(TIM_MOTOR, MOTOR_N2TimerReloadISR);
-	TIM_OnPulse(TIM_MOTOR, TIM_MOTOR_CH, MOTOR_N2TimerPulseISR);
-	TIM_SetPulse(TIM_MOTOR, TIM_MOTOR_CH, MOTOR_OFF);
-	TIM_Start(TIM_MOTOR);
-}
-
-void MOTOR_Deinit (void)
-{
-	TIM_Stop(TIM_MOTOR);
-
-	GPIO_Reset(FET_N1_GPIO, FET_N1_PIN);
-	GPIO_Reset(FET_N2_GPIO, FET_N2_PIN);
-	GPIO_Reset(FET_P1_GPIO, FET_P1_PIN);
-	GPIO_Reset(FET_P2_GPIO, FET_P2_PIN);
-	CORE_Delay(OFF_DELAY_PFET_MS);
-	GPIO_Deinit(FET_N1_GPIO, FET_N1_PIN);
-	GPIO_Deinit(FET_N2_GPIO, FET_N2_PIN);
-	GPIO_Deinit(FET_P1_GPIO, FET_P1_PIN);
-	GPIO_Deinit(FET_P2_GPIO, FET_P2_PIN);
-
-	TIM_Deinit(TIM_MOTOR);
 }
 
 /*
  * UPDATE THE MOTOR SPEED
- * Input:
- * 		- ip.duty : Motor duty-cycle in deci-percent (0-1000).
- * 		- ip.reverse : True if motor is driving forward, else false.
- * Return:
- * 		- 0 : The motor speed is up-to-date.
- * 		- 1 : Failed to update the motor speed.
  */
-uint8_t MOTOR_Update (DriveState_t * ip)
+void MOTOR_Update (void)
 {
 	// INIT DRIVE STATUS VARIABLES
 	static bool r_prev = false;
-	static uint32_t d_prev = 0;
+	static uint32_t m_prev = MOTOR_OFF;
+	bool reverse = false;
+	int32_t motor = (input - RADIO_CENTER);
 
-	// CLAMP THE INPUT DUTY CYCLE
-	if (ip->duty > MOTOR_MAX) {
-		ip->duty = MOTOR_MAX;
-	}
-	else if (ip->duty < MOTOR_MIN) {
-		ip->duty = MOTOR_MIN;
-	}
-
-	// CHECK IF INPUTS HAVE CHANGED
-	if (d_prev == ip->duty && r_prev == ip->reverse) {
-		return 0;
-	}
-
-	// CHECK FOR CHANGE OF DIRECTION AND UPDATE THE MOTOR SPEED
-	if (ip->duty == MOTOR_OFF) // check if motor is OFF
+	if (motor < MOTOR_OFF)
 	{
+		motor = -motor;
+		reverse = true;
+	}
+
+
+	if (m_prev == MOTOR_OFF && motor < (MOTOR_OFF_ERROR + MOTOR_OFF_HYST))
+	{
+		motor = MOTOR_OFF;
+	}
+	else if (m_prev != MOTOR_OFF && motor < MOTOR_OFF_ERROR)
+	{
+		motor = MOTOR_OFF;
+	}
+	else if (motor > (MOTOR_MAX - MOTOR_MAX_ERROR))
+	{
+		motor = MOTOR_MAX;
+	}
+
+
+
+	if (motor == m_prev && reverse == r_prev)
+	{
+		return;
+	}
+
+	if (motor == MOTOR_OFF)
+	{
+		TIM_Deinit(TIM_MOTOR);
+		CORE_Delay(1);
+		GPIO_Reset(FET_P1_GPIO, FET_P1_PIN);
+		GPIO_Reset(FET_N2_GPIO, FET_N2_PIN);
+		GPIO_Reset(FET_P2_GPIO, FET_P2_PIN);
+		GPIO_Reset(FET_N1_GPIO, FET_N1_PIN);
+		CORE_Delay(1);
 		if (MOTOR_BRAKE)
 		{
-			TIM_Stop(TIM_MOTOR);
-			GPIO_Reset(FET_P1_GPIO, FET_P1_PIN);
-			GPIO_Reset(FET_P2_GPIO, FET_P2_PIN);
-			CORE_Delay(OFF_DELAY_PFET_MS);
 			GPIO_Set(FET_N1_GPIO, FET_N1_PIN);
 			GPIO_Set(FET_N2_GPIO, FET_N2_PIN);
-			TIM_OnPulse(TIM_MOTOR, TIM_MOTOR_CH, MOTOR_TimerBlankIRQ);
-			TIM_OnReload(TIM_MOTOR, MOTOR_TimerBlankIRQ);
-			TIM_SetPulse(TIM_MOTOR, TIM_MOTOR_CH, MOTOR_OFF);
-			TIM_Start(TIM_MOTOR);
+			CORE_Delay(1);
 		}
-		else // MOTOR COAST
+	}
+	else if (reverse)
+	{
+		if (motor == MOTOR_MAX)
 		{
-			TIM_Stop(TIM_MOTOR);
-			GPIO_Reset(FET_N1_GPIO, FET_N1_PIN);
-			GPIO_Reset(FET_N2_GPIO, FET_N2_PIN);
+			if (r_prev == reverse)
+			{
+				TIM_Deinit(TIM_MOTOR);
+				CORE_Delay(1);
+				GPIO_Reset(FET_P1_GPIO, FET_P1_PIN);
+				GPIO_Reset(FET_N2_GPIO, FET_N2_PIN);
+				GPIO_Set(FET_P2_GPIO, FET_P2_PIN);
+				GPIO_Set(FET_N1_GPIO, FET_N1_PIN);
+				CORE_Delay(1);
+			}
+			else
+			{
+				TIM_Deinit(TIM_MOTOR);
+				CORE_Delay(1);
+				GPIO_Reset(FET_P1_GPIO, FET_P1_PIN);
+				GPIO_Reset(FET_N2_GPIO, FET_N2_PIN);
+				GPIO_Reset(FET_P2_GPIO, FET_P2_PIN);
+				GPIO_Reset(FET_N1_GPIO, FET_N1_PIN);
+				CORE_Delay(1);
+				GPIO_Set(FET_P2_GPIO, FET_P2_PIN);
+				GPIO_Set(FET_N1_GPIO, FET_N1_PIN);
+				CORE_Delay(1);
+			}
+		}
+		else if (m_prev == MOTOR_OFF)
+		{
 			GPIO_Reset(FET_P1_GPIO, FET_P1_PIN);
+			GPIO_Reset(FET_N2_GPIO, FET_N2_PIN);
 			GPIO_Reset(FET_P2_GPIO, FET_P2_PIN);
-			CORE_Delay(OFF_DELAY_PFET_MS);
-			TIM_OnPulse(TIM_MOTOR, TIM_MOTOR_CH, MOTOR_TimerBlankIRQ);
-			TIM_OnReload(TIM_MOTOR, MOTOR_TimerBlankIRQ);
-			TIM_SetPulse(TIM_MOTOR, TIM_MOTOR_CH, MOTOR_OFF);
-			TIM_Start(TIM_MOTOR);
-		}
-	}
-	else if (r_prev == ip->reverse && d_prev != MOTOR_OFF) // check is only updating dity cycle
-	{
-		TIM_SetPulse(TIM_MOTOR, TIM_MOTOR_CH, ip->duty);
-	}
-	else // motor control is changing run states
-	{
-		TIM_Stop(TIM_MOTOR);
-		GPIO_Reset(FET_N1_GPIO, FET_N1_PIN);
-		GPIO_Reset(FET_N2_GPIO, FET_N2_PIN);
-		GPIO_Reset(FET_P1_GPIO, FET_P1_PIN);
-		GPIO_Reset(FET_P2_GPIO, FET_P2_PIN);
-		CORE_Delay(OFF_DELAY_PFET_MS);
-		if (ip->reverse)
-		{
+			GPIO_Reset(FET_N1_GPIO, FET_N1_PIN);
+			CORE_Delay(1);
 			GPIO_Set(FET_P2_GPIO, FET_P2_PIN);
+			CORE_Delay(1);
+			TIM_Init(TIM_MOTOR, TIM_MOTOR_FREQ, TIM_MOTOR_RELOAD);
 			TIM_OnPulse(TIM_MOTOR, TIM_MOTOR_CH, MOTOR_N1TimerPulseISR);
 			TIM_OnReload(TIM_MOTOR, MOTOR_N1TimerReloadISR);
+			TIM_SetPulse(TIM_MOTOR, TIM_MOTOR_CH, motor);
+			TIM_Start(TIM_MOTOR);
 		}
-		else // !ip->reverse
+		else if (m_prev == MOTOR_MAX)
 		{
-			GPIO_Set(FET_P1_GPIO, FET_P1_PIN);
-			TIM_OnPulse(TIM_MOTOR, TIM_MOTOR_CH, MOTOR_N2TimerPulseISR);
-			TIM_OnReload(TIM_MOTOR, MOTOR_N2TimerReloadISR);
+			if (r_prev == reverse)
+			{
+				GPIO_Reset(FET_P1_GPIO, FET_P1_PIN);
+				GPIO_Reset(FET_N2_GPIO, FET_N2_PIN);
+				GPIO_Set(FET_P2_GPIO, FET_P2_PIN);
+				CORE_Delay(1);
+				TIM_Init(TIM_MOTOR, TIM_MOTOR_FREQ, TIM_MOTOR_RELOAD);
+				TIM_OnPulse(TIM_MOTOR, TIM_MOTOR_CH, MOTOR_N1TimerPulseISR);
+				TIM_OnReload(TIM_MOTOR, MOTOR_N1TimerReloadISR);
+				TIM_SetPulse(TIM_MOTOR, TIM_MOTOR_CH, motor);
+				TIM_Start(TIM_MOTOR);
+			}
+			else
+			{
+				GPIO_Reset(FET_P1_GPIO, FET_P1_PIN);
+				GPIO_Reset(FET_N2_GPIO, FET_N2_PIN);
+				GPIO_Reset(FET_P2_GPIO, FET_P2_PIN);
+				GPIO_Reset(FET_N1_GPIO, FET_N1_PIN);
+				CORE_Delay(1);
+				GPIO_Set(FET_P2_GPIO, FET_P2_PIN);
+				CORE_Delay(1);
+				TIM_Init(TIM_MOTOR, TIM_MOTOR_FREQ, TIM_MOTOR_RELOAD);
+				TIM_OnPulse(TIM_MOTOR, TIM_MOTOR_CH, MOTOR_N1TimerPulseISR);
+				TIM_OnReload(TIM_MOTOR, MOTOR_N1TimerReloadISR);
+				TIM_SetPulse(TIM_MOTOR, TIM_MOTOR_CH, motor);
+				TIM_Start(TIM_MOTOR);
+			}
 		}
-		TIM_SetPulse(TIM_MOTOR, TIM_MOTOR_CH, ip->duty);
-		TIM_Start(TIM_MOTOR);
+		else
+		{
+			TIM_SetPulse(TIM_MOTOR, TIM_MOTOR_CH, motor);
+		}
+	}
+	else // !reverse
+	{
+		if (motor == MOTOR_MAX)
+			{
+				if (r_prev == reverse)
+				{
+					TIM_Deinit(TIM_MOTOR);
+					CORE_Delay(1);
+					GPIO_Reset(FET_P2_GPIO, FET_P2_PIN);
+					GPIO_Reset(FET_N1_GPIO, FET_N1_PIN);
+					GPIO_Set(FET_P1_GPIO, FET_P1_PIN);
+					GPIO_Set(FET_N2_GPIO, FET_N2_PIN);
+					CORE_Delay(1);
+				}
+				else
+				{
+					TIM_Deinit(TIM_MOTOR);
+					CORE_Delay(1);
+					GPIO_Reset(FET_P1_GPIO, FET_P1_PIN);
+					GPIO_Reset(FET_N2_GPIO, FET_N2_PIN);
+					GPIO_Reset(FET_P2_GPIO, FET_P2_PIN);
+					GPIO_Reset(FET_N1_GPIO, FET_N1_PIN);
+					CORE_Delay(1);
+					GPIO_Set(FET_P1_GPIO, FET_P1_PIN);
+					GPIO_Set(FET_N2_GPIO, FET_N2_PIN);
+					CORE_Delay(1);
+				}
+			}
+			else if (m_prev == MOTOR_OFF)
+			{
+				GPIO_Reset(FET_P1_GPIO, FET_P1_PIN);
+				GPIO_Reset(FET_N2_GPIO, FET_N2_PIN);
+				GPIO_Reset(FET_P2_GPIO, FET_P2_PIN);
+				GPIO_Reset(FET_N1_GPIO, FET_N1_PIN);
+				CORE_Delay(1);
+				GPIO_Set(FET_P1_GPIO, FET_P1_PIN);
+				CORE_Delay(1);
+				TIM_Init(TIM_MOTOR, TIM_MOTOR_FREQ, TIM_MOTOR_RELOAD);
+				TIM_OnPulse(TIM_MOTOR, TIM_MOTOR_CH, MOTOR_N2TimerPulseISR);
+				TIM_OnReload(TIM_MOTOR, MOTOR_N2TimerReloadISR);
+				TIM_SetPulse(TIM_MOTOR, TIM_MOTOR_CH, motor);
+				TIM_Start(TIM_MOTOR);
+			}
+			else if (m_prev == MOTOR_MAX)
+			{
+				if (r_prev == reverse)
+				{
+					GPIO_Reset(FET_P2_GPIO, FET_P2_PIN);
+					GPIO_Reset(FET_N1_GPIO, FET_N1_PIN);
+					GPIO_Set(FET_P1_GPIO, FET_P1_PIN);
+					CORE_Delay(1);
+					TIM_Init(TIM_MOTOR, TIM_MOTOR_FREQ, TIM_MOTOR_RELOAD);
+					TIM_OnPulse(TIM_MOTOR, TIM_MOTOR_CH, MOTOR_N2TimerPulseISR);
+					TIM_OnReload(TIM_MOTOR, MOTOR_N2TimerReloadISR);
+					TIM_SetPulse(TIM_MOTOR, TIM_MOTOR_CH, motor);
+					TIM_Start(TIM_MOTOR);
+				}
+				else
+				{
+					GPIO_Reset(FET_P1_GPIO, FET_P1_PIN);
+					GPIO_Reset(FET_N2_GPIO, FET_N2_PIN);
+					GPIO_Reset(FET_P2_GPIO, FET_P2_PIN);
+					GPIO_Reset(FET_N1_GPIO, FET_N1_PIN);
+					CORE_Delay(1);
+					GPIO_Set(FET_P1_GPIO, FET_P1_PIN);
+					CORE_Delay(1);
+					TIM_Init(TIM_MOTOR, TIM_MOTOR_FREQ, TIM_MOTOR_RELOAD);
+					TIM_OnPulse(TIM_MOTOR, TIM_MOTOR_CH, MOTOR_N2TimerPulseISR);
+					TIM_OnReload(TIM_MOTOR, MOTOR_N2TimerReloadISR);
+					TIM_SetPulse(TIM_MOTOR, TIM_MOTOR_CH, motor);
+					TIM_Start(TIM_MOTOR);
+				}
+			}
+			else
+			{
+				TIM_SetPulse(TIM_MOTOR, TIM_MOTOR_CH, motor);
+			}
 	}
 
 	// UPDATE STATUS VARIABLES
-	d_prev = ip->duty;
-	r_prev = ip->reverse;
-
-	return 0;
+	m_prev = motor;
+	r_prev = reverse;
 }
 
 /*
  * PRIVATE FUNCTIONS
  */
-
 
 /*
  * INTERRUPT ROUTINES
@@ -181,22 +270,22 @@ uint8_t MOTOR_Update (DriveState_t * ip)
 
 void MOTOR_N2TimerPulseISR (void)
 {
-	GPIO_Set(FET_N2_GPIO, FET_N2_PIN);
+	GPIO_Reset(FET_N2_GPIO, FET_N2_PIN);
 }
 
 void MOTOR_N2TimerReloadISR (void)
 {
-	GPIO_Reset(FET_N2_GPIO, FET_N2_PIN);
+	GPIO_Set(FET_N2_GPIO, FET_N2_PIN);
 }
 
 void MOTOR_N1TimerPulseISR (void)
 {
-	GPIO_Set(FET_N1_GPIO, FET_N1_PIN);
+	GPIO_Reset(FET_N1_GPIO, FET_N1_PIN);
 }
 
 void MOTOR_N1TimerReloadISR (void)
 {
-	GPIO_Reset(FET_N1_GPIO, FET_N1_PIN);
+	GPIO_Set(FET_N1_GPIO, FET_N1_PIN);
 }
 
 void MOTOR_TimerBlankIRQ (void)

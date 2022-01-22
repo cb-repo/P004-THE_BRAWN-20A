@@ -1,0 +1,7 @@
+Core.inl:12:24:CORE_GetTick	8	static
+GPIO.inl:21:20:GPIO_EnableOutput	24	static
+GPIO.inl:28:20:GPIO_Set	16	static
+GPIO.inl:33:20:GPIO_Reset	16	static
+GPIO.inl:38:28:GPIO_Read	16	static
+System.c:58:6:SYSTEM_Init	16	static
+System.c:97:6:SYSTEM_Update	24	static

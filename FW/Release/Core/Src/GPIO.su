@@ -1,0 +1,6 @@
+GPIO.c:153:20:EXTIx_IRQHandler	8	static
+GPIO.c:48:6:GPIO_Write	0	static
+GPIO.c:67:6:GPIO_OnChange	32	static
+GPIO.c:80:6:GPIO_Init	32	static
+GPIO.c:60:6:GPIO_EnableAlternate	40	static
+GPIO.c:212:6:EXTI4_15_IRQHandler	8	static

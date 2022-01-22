@@ -1,0 +1,8 @@
+Core.c:58:6:CORE_Init	32	static
+Core.c:84:33:CORE_Idle	0	static,ignoring_inline_asm
+Core.c:95:6:CORE_Stop	8	static,ignoring_inline_asm
+Core.c:113:6:CORE_Delay	16	static
+Core.c:123:6:CORE_Reset	0	static,ignoring_inline_asm
+Core.c:135:20:CORE_GetResetSource	0	static
+Core.c:206:10:HAL_GetTick	0	static
+Core.c:215:6:SysTick_Handler	0	static

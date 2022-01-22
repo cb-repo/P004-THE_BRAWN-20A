@@ -1,5 +1,0 @@
-EEPROM.c:31:6:EEPROM_Write	40	static
-EEPROM.c:48:6:EEPROM_Read	32	static
-EEPROM.c:58:13:EEPROM_Unlock	24	static,ignoring_inline_asm
-EEPROM.c:70:20:EEPROM_Lock	8	static
-EEPROM.c:75:13:EEPROM_WaitForOperation	8	static

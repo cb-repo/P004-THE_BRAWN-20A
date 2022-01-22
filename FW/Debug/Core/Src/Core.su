@@ -1,0 +1,14 @@
+core_cm0plus.h:983:34:__NVIC_SystemReset	8	static,ignoring_inline_asm
+Core.inl:12:24:CORE_GetTick	8	static
+GPIO.inl:16:20:GPIO_Deinit	16	static
+CLK.inl:10:24:CLK_GetHCLKFreq	8	static
+Core.c:58:6:CORE_Init	8	static
+Core.c:84:33:CORE_Idle	8	static,ignoring_inline_asm
+Core.c:95:6:CORE_Stop	8	static,ignoring_inline_asm
+Core.c:113:6:CORE_Delay	24	static
+Core.c:123:6:CORE_Reset	8	static
+Core.c:135:20:CORE_GetResetSource	16	static
+Core.c:174:6:CORE_InitSysTick	8	static
+Core.c:180:6:CORE_InitGPIO	24	static
+Core.c:206:10:HAL_GetTick	8	static
+Core.c:215:6:SysTick_Handler	8	static

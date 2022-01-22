@@ -1,0 +1,14 @@
+TIM.c:409:13:TIM_IRQHandler	16	static
+TIM.c:196:13:TIM_EnableOCx.isra.0	12	static
+TIM.c:118:6:TIM_SetFreq	8	static
+TIM.c:105:6:TIM_Init	16	static
+TIM.c:124:6:TIM_SetReload	0	static
+TIM.c:130:6:TIM_OnReload	8	static
+TIM.c:136:6:TIM_OnPulse	16	static
+TIM.c:146:6:TIM_EnablePwm	16	static
+TIM.c:154:6:TIM_SetPulse	4	static
+TIM.c:174:6:TIM_Start	0	static
+TIM.c:180:6:TIM_Stop	0	static
+TIM.c:185:6:TIM_Deinit	8	static
+TIM.c:450:6:TIM2_IRQHandler	8	static
+TIM.c:492:6:TIM21_IRQHandler	8	static

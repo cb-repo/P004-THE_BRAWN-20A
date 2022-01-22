@@ -1,0 +1,12 @@
+UART.c:84:6:UART_Init	16	static
+UART.c:127:6:UART_Deinit	8	static
+UART.c:143:6:UART_Write	32	static
+UART.c:161:6:UART_WriteStr	16	static
+UART.c:166:10:UART_ReadCount	0	static
+UART.c:175:10:UART_Read	16	static
+UART.c:195:9:UART_Pop	0	static
+UART.c:203:6:UART_ReadFlush	0	static
+UART.c:218:10:UART_WriteCount	0	static
+UART.c:210:6:UART_WriteFlush	8	static
+UART.c:343:6:UART_IRQHandler	12	static
+UART.c:396:6:USART2_IRQHandler	8	static

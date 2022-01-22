@@ -9,28 +9,26 @@
  * PUBLIC DEFINITIONS
  */
 
-#define MOTOR_FREQ			(10*1000) 	// 20kHz
+#define MOTOR_PERIOD_MS		10
+
 #define MOTOR_OFF			0
-#define MOTOR_MIN			1
-#define MOTOR_MAX			1000 // 100% in deci-Percent
+#define MOTOR_MIN			MOTOR_OFF
+#define MOTOR_MAX			TIM_MOTOR_RELOAD
+
+#define MOTOR_OFF_ERROR			50
+#define MOTOR_OFF_HYST			10
+#define MOTOR_MAX_ERROR			10
 
 /*
  * PUBLIC TYPES
  */
-
-typedef struct {
-	bool reverse;
-	uint32_t duty;
-} DriveState_t;
 
 /*
  * PUBLIC FUNCTIONS
  */
 
 void MOTOR_Init (void);
-void MOTOR_Deinit (void);
-uint8_t MOTOR_Update (DriveState_t *);
-
+void MOTOR_Update (void);
 
 /*
  * EXTERN DECLARATIONS

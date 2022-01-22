@@ -1,0 +1,2 @@
+Radio.c:49:6:RADIO_SPWM_IRQ	0	static
+Radio.c:32:6:RADIO_Init	16	static

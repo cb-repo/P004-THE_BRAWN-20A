@@ -1,0 +1,16 @@
+GPIO.inl:16:20:GPIO_Deinit	16	static
+CLK.inl:15:24:CLK_GetPCLKFreq	8	static
+UART.c:84:6:UART_Init	64	static
+UART.c:127:6:UART_Deinit	16	static
+UART.c:143:6:UART_Write	32	static
+UART.c:161:6:UART_WriteStr	16	static
+UART.c:166:10:UART_ReadCount	24	static
+UART.c:175:10:UART_Read	40	static
+UART.c:195:9:UART_Pop	24	static
+UART.c:203:6:UART_ReadFlush	16	static
+UART.c:210:6:UART_WriteFlush	16	static
+UART.c:218:10:UART_WriteCount	24	static
+UART.c:233:13:UARTx_Init	16	static
+UART.c:285:13:UARTx_Deinit	16	static
+UART.c:343:6:UART_IRQHandler	24	static
+UART.c:396:6:USART2_IRQHandler	8	static

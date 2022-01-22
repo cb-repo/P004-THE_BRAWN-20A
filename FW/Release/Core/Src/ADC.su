@@ -1,0 +1,6 @@
+ADC.c:66:6:ADC_Init	16	static
+ADC.c:100:10:ADC_Read	0	static
+ADC.c:112:6:ADC_Deinit	8	static
+ADC.c:119:10:AIN_AinToDivider	16	static
+ADC.c:124:10:AIN_AinToMv	8	static
+ADC.c:140:10:ADC_ReadVRef	8	static

@@ -1,9 +1,0 @@
-GPIO.inl:38:28:GPIO_Read	16	static
-TIM.inl:10:24:TIM_Read	16	static
-Radio.c:34:6:RADIO_Init	8	static
-Radio.c:40:6:RADIO_Deinit	8	static
-Radio.c:45:6:RADIO_Update	8	static
-Radio.c:70:10:RADIO_GetValue	8	static
-Radio.c:79:6:RADIO_InitSPWM	8	static
-Radio.c:87:6:RADIO_DeinitSPWM	8	static
-Radio.c:98:6:RADIO_SPWM_IRQ	16	static

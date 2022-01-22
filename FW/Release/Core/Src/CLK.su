@@ -1,0 +1,5 @@
+CLK.c:71:6:CLK_InitSYSCLK	0	static
+CLK.c:163:6:CLK_EnableLSO	0	static
+CLK.c:184:6:CLK_DisableLSO	0	static
+CLK.c:193:6:CLK_EnableADCCLK	0	static
+CLK.c:202:6:CLK_DisableADCCLK	0	static
