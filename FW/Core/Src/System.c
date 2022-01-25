@@ -24,9 +24,9 @@
 #define BATT_4S_LOW			13200
 #define BATT_4S_HIGH		16800
 
-#define SYSTEM_BATT_WARN	600
-#define SYSTEM_BATT_FAULT	300
-#define SYSTEM_BATT_HYST	200
+#define SYSTEM_BATT_WARN	300
+#define SYSTEM_BATT_FAULT	100
+#define SYSTEM_BATT_HYST	100
 
 //#define SYSTEM_TEMP_WARN	80
 //#define	SYSTEM_TEMP_FAULT	100
@@ -102,14 +102,14 @@ void SYSTEM_Update (void)
 		if (SystemVolt < battery_fault) { status.faultBatt = 1; }
 	}
 	else { //status.faultBatt == 1
-		if (SystemVolt > battery_fault) { status.faultBatt = 0; }
+		if (SystemVolt > (battery_fault + SYSTEM_BATT_HYST)) { status.faultBatt = 0; }
 	}
 
 	if (status.warnBatt == 0) {
 		if (SystemVolt < battery_warn) { status.warnBatt = 1; }
 	}
 	else { //status.warnBatt == 1
-		if (SystemVolt > battery_warn) { status.warnBatt = 0; }
+		if (SystemVolt > (battery_warn + SYSTEM_BATT_HYST)) { status.warnBatt = 0; }
 	}
 
 	if (status.faultInput == 0) {
