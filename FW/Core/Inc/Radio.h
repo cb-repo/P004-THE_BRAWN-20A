@@ -12,6 +12,7 @@
 #define RADIO_MIN		1000
 #define RADIO_CENTER	1500
 #define RADIO_MAX		2000
+#define RADIO_HYST		50
 
 /*
  * PUBLIC TYPES
@@ -28,7 +29,7 @@ void RADIO_Init (void);
  */
 
 extern volatile uint16_t input;
-extern volatile uint32_t heartbeatRadio;
+extern volatile uint32_t inputHeartbeat;
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 #endif /* RADIO_H */

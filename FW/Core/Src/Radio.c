@@ -7,6 +7,7 @@
 /*
  * PRIVATE DEFINITIONS
  */
+#define RADIO_THRESH		200
 
 /*
  * PRIVATE TYPES
@@ -22,8 +23,8 @@ void RADIO_SPWM_IRQ (void);
  * PRIVATE VARIABLES
  */
 
-volatile uint16_t input = RADIO_CENTER;
-volatile uint32_t heartbeatRadio;
+volatile uint16_t input;
+volatile uint32_t inputHeartbeat;
 
 /*
  * PUBLIC FUNCTIONS
@@ -31,7 +32,6 @@ volatile uint32_t heartbeatRadio;
 
 void RADIO_Init (void)
 {
-	heartbeatRadio = CORE_GetTick();
 	GPIO_EnableInput(RADIO_GPIO, RADIO_PIN, GPIO_Pull_None);
 	GPIO_OnChange(RADIO_GPIO, RADIO_PIN, GPIO_IT_Both, RADIO_SPWM_IRQ);
 	TIM_Init(TIM_RADIO, TIM_RADIO_FREQ, TIM_RADIO_RELOAD);
@@ -49,15 +49,25 @@ void RADIO_Init (void)
 void RADIO_SPWM_IRQ (void)
 {
 	uint16_t now = TIM_Read(TIM_RADIO);
+	uint16_t pulse = 0;
 	static uint16_t tick;
-	heartbeatRadio = CORE_GetTick();
+
 	if (GPIO_Read(RADIO_GPIO, RADIO_PIN))
 	{
 		tick = now;
 	}
 	else
 	{
-		input = now - tick;
+		pulse = now - tick;
+//		input = pulse;
+//		inputHeartbeat = CORE_GetTick();
+
+		// Check pulse is valid
+		if (pulse <= (RADIO_MAX + RADIO_THRESH) && pulse >= (RADIO_MIN - RADIO_THRESH))
+		{
+			input = pulse;
+			inputHeartbeat = CORE_GetTick();
+		}
 	}
 }
 

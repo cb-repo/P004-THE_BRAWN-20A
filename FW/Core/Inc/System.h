@@ -14,9 +14,9 @@
  */
 
 typedef struct {
-	uint8_t faultInput;
-	uint8_t faultBatt;
-	uint8_t warnBatt;
+	bool faultInput;
+	bool faultBatt;
+	bool warnBatt;
 } Status_t;
 
 /*

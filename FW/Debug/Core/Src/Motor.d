@@ -30,7 +30,7 @@ Core/Src/Motor.o: ../Core/Src/Motor.c ../Core/Inc/Motor.h \
  ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_uart_ex.h \
  ../Core/Inc/GPIO.h ../Core/Inc/GPIO.inl ../Core/Inc/TIM.h \
  ../Core/Inc/GPIO.h ../Core/Inc/TIM.inl ../Core/Inc/Core.h \
- ../Core/Inc/Core.inl ../Core/Inc/Radio.h
+ ../Core/Inc/Core.inl ../Core/Inc/Radio.h ../Core/Inc/System.h
 
 ../Core/Inc/Motor.h:
 
@@ -109,3 +109,5 @@ Core/Src/Motor.o: ../Core/Src/Motor.c ../Core/Inc/Motor.h \
 ../Core/Inc/Core.inl:
 
 ../Core/Inc/Radio.h:
+
+../Core/Inc/System.h:

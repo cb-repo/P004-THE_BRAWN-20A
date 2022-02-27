@@ -15,6 +15,7 @@
 #define FAULT_LED_FLASH 	500
 #define WARNING_LED_FLASH	500
 
+// Battery Voltage Limits
 #define BATT_1S_LOW			3300
 #define BATT_1S_HIGH		4200
 #define BATT_2S_LOW			6600
@@ -23,16 +24,12 @@
 #define BATT_3S_HIGH		12600
 #define BATT_4S_LOW			13200
 #define BATT_4S_HIGH		16800
+// Battery Warning Above Lower Limit
+#define BATT_WARNING		200
 
-#define SYSTEM_BATT_WARN	300
-#define SYSTEM_BATT_FAULT	100
-#define SYSTEM_BATT_HYST	100
+#define BATT_HYST			100
 
-//#define SYSTEM_TEMP_WARN	80
-//#define	SYSTEM_TEMP_FAULT	100
-//#define SYSTEM_TEMP_HYST	5
-
-#define SYSTEM_INPUT_TIMEOUT 50
+#define INPUT_TIMEOUT 		50
 
 /*
  * PRIVATE TYPES
@@ -61,33 +58,33 @@ void SYSTEM_Init (void)
 	GPIO_EnableOutput(LED_RED_GPIO, LED_RED_PIN, false);
 
 	ADC_Init();
-	CORE_Delay(10);
+	CORE_Delay(10); // Let stabilize before taking reading
 	uint32_t volt = AIN_AinToDivider(ADC_Read(BATTERY_CHANNEL),BATTERY_DET_RLOW, BATTERY_DET_RHIGH);
 
 	if (volt >= BATT_1S_LOW && volt <= BATT_1S_HIGH)
 	{
-		battery_fault = BATT_1S_LOW + SYSTEM_BATT_FAULT;
-		battery_warn = BATT_1S_LOW + SYSTEM_BATT_WARN;
+		battery_fault = BATT_1S_LOW;
+		battery_warn = BATT_1S_LOW + BATT_WARNING;
 	}
 	else if (volt >= BATT_2S_LOW && volt <= BATT_2S_HIGH)
 	{
-		battery_fault = BATT_2S_LOW + SYSTEM_BATT_FAULT;
-		battery_warn = BATT_2S_LOW + SYSTEM_BATT_WARN;
+		battery_fault = BATT_2S_LOW;
+		battery_warn = BATT_2S_LOW + BATT_WARNING;
 	}
 	else if (volt >= BATT_3S_LOW && volt <= BATT_3S_HIGH)
 	{
-		battery_fault = BATT_3S_LOW + SYSTEM_BATT_FAULT;
-		battery_warn = BATT_3S_LOW + SYSTEM_BATT_WARN;
+		battery_fault = BATT_3S_LOW;
+		battery_warn = BATT_3S_LOW + BATT_WARNING;
 	}
 	else if (volt >= BATT_4S_LOW && volt <= BATT_4S_HIGH)
 	{
-		battery_fault = BATT_4S_LOW + SYSTEM_BATT_FAULT;
-		battery_warn = BATT_4S_LOW + SYSTEM_BATT_WARN;
+		battery_fault = BATT_4S_LOW;
+		battery_warn = BATT_4S_LOW + BATT_WARNING;
 	}
 	else
 	{
-		battery_fault = BATT_1S_LOW + SYSTEM_BATT_FAULT;
-		battery_warn = BATT_1S_LOW + SYSTEM_BATT_WARN;
+		battery_fault = BATT_1S_LOW;
+		battery_warn = BATT_1S_LOW + BATT_WARNING;
 	}
 
 }
@@ -95,49 +92,38 @@ void SYSTEM_Init (void)
 void SYSTEM_Update (void)
 {
 	uint32_t SystemVolt = AIN_AinToDivider(ADC_Read(BATTERY_CHANNEL),BATTERY_DET_RLOW, BATTERY_DET_RHIGH);
-	uint8_t a = (uint8_t)(SystemVolt/100);
-	uint32_t SystemInput = CORE_GetTick() - heartbeatRadio;
 
-	if (status.faultBatt == 0) {
-		if (SystemVolt < battery_fault) { status.faultBatt = 1; }
+	if (status.faultBatt == false) {
+		if (SystemVolt <= battery_fault) { status.faultBatt = true; }
 	}
-	else { //status.faultBatt == 1
-		if (SystemVolt > (battery_fault + SYSTEM_BATT_HYST)) { status.faultBatt = 0; }
+	else { //status.faultBatt == true
+		if (SystemVolt >= (battery_fault + BATT_HYST)) { status.faultBatt = false; }
 	}
 
-	if (status.warnBatt == 0) {
-		if (SystemVolt < battery_warn) { status.warnBatt = 1; }
+	if (status.warnBatt == false) {
+		if (SystemVolt <= battery_warn) { status.warnBatt = true; }
 	}
-	else { //status.warnBatt == 1
-		if (SystemVolt > (battery_warn + SYSTEM_BATT_HYST)) { status.warnBatt = 0; }
+	else { //status.warnBatt == true
+		if (SystemVolt >= (battery_warn + BATT_HYST)) { status.warnBatt = false; }
 	}
 
-	if (status.faultInput == 0) {
-		if (SystemInput > SYSTEM_INPUT_TIMEOUT) { status.faultInput = 1; }
+	if (INPUT_TIMEOUT <= CORE_GetTick() - inputHeartbeat)
+	{
+		status.faultInput = true;
 	}
-	else { //status.faultInput == 1
-		if (SystemInput < SYSTEM_INPUT_TIMEOUT) { status.faultInput = 0; }
+	else
+	{
+		status.faultInput = false;
 	}
+
 
 	static uint32_t tick;
 	uint32_t now = CORE_GetTick();
 
 	if (status.faultBatt)
 	{
-		if (FAULT_LED_FLASH <= (now - tick))
-		{
-			if (GPIO_Read(LED_GRN_GPIO, LED_GRN_PIN))
-			{
-				GPIO_Reset(LED_GRN_GPIO, LED_GRN_PIN);
-				GPIO_Reset(LED_RED_GPIO, LED_RED_PIN);
-			}
-			else
-			{
-				GPIO_Set(LED_GRN_GPIO, LED_GRN_PIN);
-				GPIO_Set(LED_RED_GPIO, LED_RED_PIN);
-			}
-			tick = now;
-		}
+		GPIO_Set(LED_GRN_GPIO, LED_GRN_PIN);
+		GPIO_Reset(LED_RED_GPIO, LED_RED_PIN);
 	}
 	else if (status.faultInput)
 	{
@@ -157,19 +143,8 @@ void SYSTEM_Update (void)
 	}
 	else if (status.warnBatt)
 	{
+		GPIO_Set(LED_GRN_GPIO, LED_GRN_PIN);
 		GPIO_Set(LED_RED_GPIO, LED_RED_PIN);
-		if (WARNING_LED_FLASH <= (now - tick))
-		{
-			if (GPIO_Read(LED_GRN_GPIO, LED_GRN_PIN))
-			{
-				GPIO_Reset(LED_GRN_GPIO, LED_GRN_PIN);
-			}
-			else
-			{
-				GPIO_Set(LED_GRN_GPIO, LED_GRN_PIN);
-			}
-			tick = now;
-		}
 	}
 	else
 	{

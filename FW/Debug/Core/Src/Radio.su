@@ -2,5 +2,5 @@ GPIO.inl:11:20:GPIO_EnableInput	24	static
 GPIO.inl:38:28:GPIO_Read	16	static
 TIM.inl:10:24:TIM_Read	16	static
 Core.inl:12:24:CORE_GetTick	8	static
-Radio.c:32:6:RADIO_Init	8	static
+Radio.c:33:6:RADIO_Init	8	static
 Radio.c:49:6:RADIO_SPWM_IRQ	16	static

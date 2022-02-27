@@ -19,6 +19,5 @@ int main(void)
 	{
 		SYSTEM_Update();
 		MOTOR_Update();
-		CORE_Idle();
 	}
 }

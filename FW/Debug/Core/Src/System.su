@@ -3,5 +3,5 @@ GPIO.inl:21:20:GPIO_EnableOutput	24	static
 GPIO.inl:28:20:GPIO_Set	16	static
 GPIO.inl:33:20:GPIO_Reset	16	static
 GPIO.inl:38:28:GPIO_Read	16	static
-System.c:58:6:SYSTEM_Init	16	static
-System.c:95:6:SYSTEM_Update	24	static
+System.c:55:6:SYSTEM_Init	16	static
+System.c:92:6:SYSTEM_Update	16	static
