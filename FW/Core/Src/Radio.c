@@ -7,7 +7,7 @@
 /*
  * PRIVATE DEFINITIONS
  */
-#define RADIO_THRESH		200
+#define RADIO_THRESH		500
 
 /*
  * PRIVATE TYPES

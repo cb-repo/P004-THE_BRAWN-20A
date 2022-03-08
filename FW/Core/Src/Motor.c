@@ -47,8 +47,6 @@ void MOTOR_Init (void)
 	GPIO_EnableOutput(FET_P2_GPIO, FET_P2_PIN, GPIO_PIN_RESET);
 	GPIO_EnableOutput(FET_N1_GPIO, FET_N1_PIN, GPIO_PIN_RESET);
 	GPIO_EnableOutput(FET_N2_GPIO, FET_N2_PIN, GPIO_PIN_RESET);
-
-
 }
 
 /*
