@@ -17,6 +17,8 @@ typedef struct {
 	bool faultInput;
 	bool faultBatt;
 	bool warnBatt;
+	bool faultTemp;
+	bool warnTemp;
 } Status_t;
 
 /*

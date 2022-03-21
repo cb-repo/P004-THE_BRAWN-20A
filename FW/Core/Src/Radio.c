@@ -7,6 +7,7 @@
 /*
  * PRIVATE DEFINITIONS
  */
+
 #define RADIO_THRESH		500
 
 /*
@@ -59,8 +60,6 @@ void RADIO_SPWM_IRQ (void)
 	else
 	{
 		pulse = now - tick;
-//		input = pulse;
-//		inputHeartbeat = CORE_GetTick();
 
 		// Check pulse is valid
 		if (pulse <= (RADIO_MAX + RADIO_THRESH) && pulse >= (RADIO_MIN - RADIO_THRESH))

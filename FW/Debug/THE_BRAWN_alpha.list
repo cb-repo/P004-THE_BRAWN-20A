@@ -21,29 +21,29 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, ALLOC, LOAD, DATA
   8 .data         00000074  20000000  08002064  00020000  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  9 .bss          000000e0  20000074  080020d8  00020074  2**2
+  9 .bss          000000e4  20000074  080020d8  00020074  2**2
                   ALLOC
- 10 ._user_heap_stack 00000604  20000154  080020d8  00020154  2**0
+ 10 ._user_heap_stack 00000600  20000158  080020d8  00020158  2**0
                   ALLOC
  11 .ARM.attributes 00000028  00000000  00000000  00020074  2**0
                   CONTENTS, READONLY
- 12 .debug_info   00006c6f  00000000  00000000  0002009c  2**0
+ 12 .debug_info   00006cbd  00000000  00000000  0002009c  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 13 .debug_abbrev 00001adc  00000000  00000000  00026d0b  2**0
+ 13 .debug_abbrev 00001adc  00000000  00000000  00026d59  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 14 .debug_aranges 00000628  00000000  00000000  000287e8  2**3
+ 14 .debug_aranges 00000628  00000000  00000000  00028838  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_ranges 00000550  00000000  00000000  00028e10  2**3
+ 15 .debug_ranges 00000550  00000000  00000000  00028e60  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_macro  000113e1  00000000  00000000  00029360  2**0
+ 16 .debug_macro  000113e1  00000000  00000000  000293b0  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   00007cf0  00000000  00000000  0003a741  2**0
+ 17 .debug_line   00007cf0  00000000  00000000  0003a791  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    00068db9  00000000  00000000  00042431  2**0
+ 18 .debug_str    00068dcc  00000000  00000000  00042481  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000053  00000000  00000000  000ab1ea  2**0
+ 19 .comment      00000053  00000000  00000000  000ab24d  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  000013a8  00000000  00000000  000ab240  2**2
+ 20 .debug_frame  000013a8  00000000  00000000  000ab2a0  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -3702,7 +3702,7 @@ int main(void)
  8001ad0:	20000074 	.word	0x20000074
  8001ad4:	08002064 	.word	0x08002064
  8001ad8:	20000074 	.word	0x20000074
- 8001adc:	20000154 	.word	0x20000154
+ 8001adc:	20000158 	.word	0x20000158
 
 08001ae0 <ADC1_IRQHandler>:
  8001ae0:	e7fe      	b.n	8001ae0 <ADC1_IRQHandler>
