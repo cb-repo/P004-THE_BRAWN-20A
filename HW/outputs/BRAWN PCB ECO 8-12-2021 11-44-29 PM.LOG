@@ -1,5 +1,0 @@
-Removed Pin From Net: NetName=+3V3 Pin=TP?-1
-Removed Pin From Net: NetName=NRST Pin=TP?-1
-Removed Pin From Net: NetName=SWCLK Pin=TP?-1
-Removed Pin From Net: NetName=SWDIO Pin=TP?-1
-Removed Member From Class: ClassName=BRAWN Member=TP?
