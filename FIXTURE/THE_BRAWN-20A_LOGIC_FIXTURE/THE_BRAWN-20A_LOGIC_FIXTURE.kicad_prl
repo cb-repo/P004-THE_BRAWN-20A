@@ -64,8 +64,8 @@
       35,
       36
     ],
-    "visible_layers": "00072cc_80000001",
-    "zone_display_mode": 1
+    "visible_layers": "00072fc_80000001",
+    "zone_display_mode": 0
   },
   "meta": {
     "filename": "THE_BRAWN-20A_LOGIC_FIXTURE.kicad_prl",
