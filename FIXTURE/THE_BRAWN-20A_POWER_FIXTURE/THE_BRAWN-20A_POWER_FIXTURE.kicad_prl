@@ -64,11 +64,11 @@
       35,
       36
     ],
-    "visible_layers": "00072fc_80000001",
+    "visible_layers": "000f2fc_80000001",
     "zone_display_mode": 0
   },
   "meta": {
-    "filename": "THE_BRAINS-20A_POWER_FIXTURE.kicad_prl",
+    "filename": "THE_BRAWN-20A_POWER_FIXTURE.kicad_prl",
     "version": 3
   },
   "project": {
