@@ -1,4 +1,4 @@
-# THE BRAWN v1.0
+# THE BRAWN - 20A (v1.0)
 
 <img src="assets/THE_BRAWN_FRONT.png" width="400"> <img src="assets/THE_BRAWN_REAR.png" width="400">
 
